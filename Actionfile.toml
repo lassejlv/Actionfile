@@ -1,0 +1,7 @@
+[env]
+ path = "./.env"
+
+[hello_world]
+  cmd = "echo 'Hello, $NAME'"
+  silent = true
+

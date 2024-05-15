@@ -1,0 +1,28 @@
+{
+  "name": "actionfile",
+  "description": "Makefile/Taskfile alternative without the hassle",
+  "version": "0.1.4",
+  "module": "src/index.ts",
+  "main": "dist/index.js",
+  "bin": {
+    "actionfile": "dist/index.js",
+    "action": "dist/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "run": "bun --watch src/index.ts",
+    "server": "bun run --watch src/server.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/express": "^4.17.21",
+    "express": "^4.19.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "toml": "^3.0.0",
+    "zod": "^3.23.8"
+  }
+}
