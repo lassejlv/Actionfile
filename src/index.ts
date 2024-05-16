@@ -6,14 +6,19 @@ import { CommandSchema, type Command } from "./zod";
 import child_process from "child_process";
 import chalk from "chalk";
 import ora from "ora";
+import inquirer from "inquirer";
 
 const FILE_NAME = "actionfile.toml";
 let COMMAND_TO_EXECUTE = process.argv[2];
 
 if (!fs.existsSync(FILE_NAME)) {
-  console.error(chalk.bold(`No ${FILE_NAME}. Exiting.`));
-  process.exit(1);
+  // Create the Actionfile
+  fs.writeFileSync(FILE_NAME, "");
 }
+
+// [build]
+//  cmd = "bun build --minify --target=node src/index.ts --outdir=dist"
+//  silent = true
 
 try {
   const ActionText = await fs.promises.readFile(FILE_NAME, "utf-8");
@@ -28,6 +33,48 @@ try {
         "Exiting."
       )}`
     );
+    process.exit(0);
+  }
+
+  if (COMMAND_TO_EXECUTE === "--init") {
+    if (Object.keys(Commands).length > 0) {
+      console.error(chalk.red.bold(`Actionfile already exists. Exiting.`));
+      process.exit(1);
+    }
+
+    let finalExampleConfig: string = "";
+
+    const { useEnv } = await inquirer.prompt([
+      {
+        type: "confirm",
+        name: "useEnv",
+        message: "Do you wanna use environment variables?",
+        default: true,
+      },
+    ]);
+
+    if (useEnv) {
+      finalExampleConfig += `[env]\npath = ".env"\n\n`;
+    }
+
+    finalExampleConfig += `[example]\ncmd = "echo Hello World"\n`;
+
+    // Create and write to the Actionfile
+    await fs.promises
+      .writeFile(FILE_NAME, finalExampleConfig)
+      .catch((error) => {
+        console.error(
+          chalk.red.bold(`Failed to create ${FILE_NAME}: ${error.message}.`)
+        );
+        process.exit(1);
+      });
+
+    console.info(
+      `${chalk.bold("Actionfile created successfully.")} ${
+        chalk.red("Exiting.") + "\n" + finalExampleConfig
+      }`
+    );
+
     process.exit(0);
   }
 

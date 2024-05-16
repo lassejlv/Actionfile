@@ -1,10 +1,5 @@
 [env]
-  path = ".env"
+path = ".env"
 
-[hello]
-  cmd = "echo 'Hello, World!'"
-  silent = true
-
-[build]
-  cmd = "bun build --minify --target=node src/index.ts --outdir=dist"
-  silent = true
+[example]
+cmd = "echo Hello World"
