@@ -1,11 +1,10 @@
 [env]
- path = "./.env"
+  path = ".env"
 
-[hello_world]
-  cmd = "echo 'Hello, $NAME'"
+[hello]
+  cmd = "echo 'Hello, World!'"
   silent = true
 
 [build]
-  cmd = "bun run src/build.ts"
+  cmd = "bun build --minify --target=node src/index.ts --outdir=dist"
   silent = true
-  deps = ["hello_world"]

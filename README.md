@@ -1,6 +1,8 @@
-# Actionfile.toml
+# Actionfile
 
-Makefile/Taskfile alternative without the hassle. It aims to be very easy to use.
+Makefile alternative without the hassle. It aims to be very easy and fun to use.
+
+If you don't know what Makefile is, it's a tool that allows you to define a set of tasks that you can run from the command line.
 
 ### Install
 
@@ -10,7 +12,7 @@ npm install -g actionfile
 
 ### Usage
 
-Actionfile.toml
+actionfile.toml
 
 ```toml
 [hello_world]
@@ -38,18 +40,3 @@ Output: Hello World!
 ```
 
 Output: Hello, John!
-
-## Features
-
-- Deps (SOON)
-  deps: <cmd> -- A command needs to be run first before "a" can be ran
-
-### Common Errors Right Now
-
-When using --watch in bun for example or nodemon, you might get this error if you are running a server:
-
-```bash
-Error: listen EADDRINUSE: address already in use :::3000
-```
-
-I'm working on a fix for this. For now, you can just kill the process and run the command again.

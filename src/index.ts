@@ -7,7 +7,7 @@ import child_process from "child_process";
 import chalk from "chalk";
 import ora from "ora";
 
-const FILE_NAME = "Actionfile.toml";
+const FILE_NAME = "actionfile.toml";
 let COMMAND_TO_EXECUTE = process.argv[2];
 
 if (!fs.existsSync(FILE_NAME)) {
@@ -33,8 +33,13 @@ try {
 
   // If no command is provided, list available commands
   if (!COMMAND_TO_EXECUTE) {
-    // Take the first command in the Actionfile
-    COMMAND_TO_EXECUTE = Object.keys(Commands)[0];
+    // Take the first command in the Actionfile but dont run env
+    for (const cmd in Commands) {
+      if (cmd === "env") continue;
+
+      COMMAND_TO_EXECUTE = cmd;
+      break;
+    }
   }
 
   // Check if the command to execute is in the Actionfile
