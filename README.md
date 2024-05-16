@@ -44,14 +44,12 @@ Output: Hello, John!
 - Deps (SOON)
   deps: <cmd> -- A command needs to be run first before "a" can be ran
 
-````
-
 ### Common Errors Right Now
 
 When using --watch in bun for example or nodemon, you might get this error if you are running a server:
 
 ```bash
 Error: listen EADDRINUSE: address already in use :::3000
-````
+```
 
 I'm working on a fix for this. For now, you can just kill the process and run the command again.

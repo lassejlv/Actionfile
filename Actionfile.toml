@@ -5,3 +5,7 @@
   cmd = "echo 'Hello, $NAME'"
   silent = true
 
+[build]
+  cmd = "bun run src/build.ts"
+  silent = true
+  deps = ["hello_world"]

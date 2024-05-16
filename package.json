@@ -1,7 +1,7 @@
 {
   "name": "actionfile",
   "description": "Makefile/Taskfile alternative without the hassle",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "module": "src/index.ts",
   "main": "dist/index.js",
   "bin": {
@@ -9,6 +9,10 @@
     "action": "dist/index.js"
   },
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lassejlv/actionfile"
+  },
   "scripts": {
     "run": "bun --watch src/index.ts",
     "server": "bun run --watch src/server.ts"
@@ -22,6 +26,8 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "chalk": "^5.3.0",
+    "ora": "^8.0.1",
     "toml": "^3.0.0",
     "zod": "^3.23.8"
   }
