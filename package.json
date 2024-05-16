@@ -1,7 +1,7 @@
 {
   "name": "actionfile",
   "description": "Makefile/Taskfile alternative without the hassle",
-  "version": "0.1.5",
+  "version": "0.1.5-fix",
   "module": "src/index.ts",
   "main": "dist/index.js",
   "bin": {

@@ -8,7 +8,7 @@ import chalk from "chalk";
 import ora from "ora";
 
 const FILE_NAME = "Actionfile.toml";
-const COMMAND_TO_EXECUTE = process.argv[2];
+let COMMAND_TO_EXECUTE = process.argv[2];
 
 if (!fs.existsSync(FILE_NAME)) {
   console.error(chalk.bold(`No ${FILE_NAME}. Exiting.`));
@@ -33,13 +33,8 @@ try {
 
   // If no command is provided, list available commands
   if (!COMMAND_TO_EXECUTE) {
-    console.info(`Available commands in ${chalk.bold(`${FILE_NAME}`)}:\n`);
-
-    // Filter out the env command
-    const commands = Object.keys(Commands).filter((cmd) => cmd !== "env");
-    console.log(chalk.green(commands.join("\n")));
-
-    process.exit(0);
+    // Take the first command in the Actionfile
+    COMMAND_TO_EXECUTE = Object.keys(Commands)[0];
   }
 
   // Check if the command to execute is in the Actionfile
