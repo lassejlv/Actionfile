@@ -26,13 +26,9 @@ try {
 
   // Check if command to execute is --version
   if (COMMAND_TO_EXECUTE === "--version") {
-    const packageJson = await fs.promises.readFile("package.json", "utf-8");
-    const { version } = JSON.parse(packageJson);
-    console.info(
-      `${chalk.blue("Version:")} ${chalk.bold(`v${version}`)}. ${chalk.red(
-        "Exiting."
-      )}`
-    );
+    const packageJson = await import("../package.json");
+
+    console.info(`${chalk.bold(`Version: ${packageJson.version}. Exiting.`)}`);
     process.exit(0);
   }
 
@@ -80,6 +76,14 @@ try {
 
   // If no command is provided, list available commands
   if (!COMMAND_TO_EXECUTE) {
+    // Check if there are any commands
+    if (Object.keys(Commands).length === 0) {
+      console.error(
+        chalk.red.bold(`No commands exist in ${FILE_NAME}. Exiting.`)
+      );
+      process.exit(1);
+    }
+
     // Take the first command in the Actionfile but dont run env
     for (const cmd in Commands) {
       if (cmd === "env") continue;
@@ -151,7 +155,7 @@ try {
 
     if (COMMAND_TO_EXECUTE !== cmd) continue;
 
-    const executionSpinner = ora(`Executing ${cmd}...`);
+    const executionSpinner = ora(`Executing ${cmd}...\n`);
 
     if (!silent) {
       executionSpinner.start();

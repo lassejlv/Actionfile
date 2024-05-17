@@ -1,5 +1,5 @@
-[env]
-path = ".env"
+[build]
+cmd = "bun build --minify --target=node --format=esm ./src/index.ts --outfile ./dist/index.js"
 
-[example]
-cmd = "echo Hello World"
+[hello]
+cmd = "echo 'Hello, World!'"
