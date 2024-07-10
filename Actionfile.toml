@@ -1,5 +1,28 @@
 [build]
 cmd = "bun build --minify --target=node --format=esm ./src/index.ts --outfile ./dist/index.js"
+silent = true
+
+[compile]
+cmd = "action compile-darwin-arm64 && action compile-darwin-x64 && action compile-linux-arm64 && action compile-linux-x64 && action compile-windows-x64"
+
+# MacOS
+[compile-darwin-arm64]
+cmd = "bun build --compile --target=bun-darwin-arm64 ./src/index.ts --outfile ./dist/actionfile-darwin-arm64"
+
+[compile-darwin-x64]
+cmd = "bun build --compile --target=bun-darwin-x64 ./src/index.ts --outfile ./dist/actionfile-darwin-x64"
+
+# Linux
+[compile-linux-arm64]
+cmd = "bun build --compile --target=bun-linux-arm64 ./src/index.ts --outfile ./dist/actionfile-linux-arm64"
+
+[compile-linux-x64]
+cmd = "bun build --compile --target=bun-linux-x64 ./src/index.ts --outfile ./dist/actionfile-linux-x64"
+
+# Windows
+[compile-windows-x64]
+cmd = "bun build --compile --target=bun-windows-x64 ./src/index.ts --outfile ./dist/actionfile-windows-x64"
 
 [hello]
 cmd = "echo 'Hello, World!'"
+silent = true

@@ -16,23 +16,19 @@ if (!fs.existsSync(FILE_NAME)) {
   fs.writeFileSync(FILE_NAME, "");
 }
 
-// [build]
-//  cmd = "bun build --minify --target=node src/index.ts --outdir=dist"
-//  silent = true
-
 try {
   const ActionText = await fs.promises.readFile(FILE_NAME, "utf-8");
   const Commands = toml.parse(ActionText) as Record<string, Command>;
 
   // Check if command to execute is --version
-  if (COMMAND_TO_EXECUTE === "--version") {
+  if (COMMAND_TO_EXECUTE === "version") {
     const packageJson = await import("../package.json");
 
     console.info(`${chalk.bold(`Version: ${packageJson.version}. Exiting.`)}`);
     process.exit(0);
   }
 
-  if (COMMAND_TO_EXECUTE === "--init") {
+  if (COMMAND_TO_EXECUTE === "init") {
     if (Object.keys(Commands).length > 0) {
       console.error(chalk.red.bold(`Actionfile already exists. Exiting.`));
       process.exit(1);
@@ -71,6 +67,34 @@ try {
       }`
     );
 
+    process.exit(0);
+  }
+
+  if (COMMAND_TO_EXECUTE === "list" || COMMAND_TO_EXECUTE === "ls") {
+    if (Object.keys(Commands).length === 0) {
+      console.error(
+        chalk.red.bold(`No commands exist in ${FILE_NAME}. Exiting.`)
+      );
+      process.exit(1);
+    }
+
+    console.info(
+      chalk.bold("Available commands in Actionfile:\n") +
+        Object.keys(Commands)
+          .map((cmd) => `  - ${cmd}`)
+          .join("\n")
+    );
+    process.exit(0);
+  }
+
+  if (COMMAND_TO_EXECUTE === "help") {
+    console.info(
+      chalk.bold("Available commands:\n") +
+        "  - init: Initialize an Actionfile\n" +
+        "  - list/ls: List available commands\n" +
+        "  - version: Display the version\n" +
+        "  - help: Display this help message"
+    );
     process.exit(0);
   }
 
